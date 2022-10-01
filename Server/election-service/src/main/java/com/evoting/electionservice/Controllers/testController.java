@@ -1,6 +1,6 @@
-package com.evoting.authservice.Controllers;
+package com.evoting.electionservice.Controllers;
 
-import com.evoting.authservice.Models.Response;
+import com.evoting.userservice.Models.Response;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,25 +10,26 @@ import java.util.Map;
 import static org.springframework.http.HttpStatus.*;
 
 @RestController
-@RequestMapping("/auth")
-public class authController {
+@RequestMapping("/test")
+public class testController {
 
 
-    @GetMapping("/login/{username}/{password}")
+    @GetMapping("/test")
     @ResponseBody
-    public ResponseEntity<Response> login(@PathVariable String username, @PathVariable String password ) {
+    public ResponseEntity<Response> methodName() {
 
-        if (username.equals("test") && password.equals("test")){
+        if (true){
 
             Map<String, String> mydata = new HashMap<String, String>(){
                 {
-            put("token", "azeadkajdozkdj");
-        }
+            put("key1Example", "Value1Example");
+            put("key2Example", "Value2Example");
+                }
             };
             return ResponseEntity.ok(
                 Response.builder()
                         .data(mydata)
-                        .message("login success")
+                        .message("response success")
                         .status(OK)
                         .statusCode(OK.value())
                         .build()
@@ -36,17 +37,11 @@ public class authController {
         }else {
             return ResponseEntity.ok(
                     Response.builder()
-                            .message("login failed")
+                            .message("response error")
                             .status(NOT_FOUND)
                             .statusCode(NOT_FOUND.value())
                             .build()
             );
         }
-    }
-
-    @GetMapping("/test")
-    @ResponseBody
-    public String test(){
-        return "Hello";
     }
 }
