@@ -6,4 +6,4 @@ WORKDIR /opt/app
 
 COPY ${JAR_FILE} app.jar
 
-ENTRYPOINT ["java","-jar","app.jar"]
+ENTRYPOINT ["java","-jar","ms-election.jar"]
