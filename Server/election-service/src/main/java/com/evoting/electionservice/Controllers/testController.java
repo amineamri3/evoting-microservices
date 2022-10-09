@@ -1,6 +1,6 @@
 package com.evoting.electionservice.Controllers;
 
-import com.evoting.userservice.Models.Response;
+import com.evoting.electionservice.Models.Response;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
