@@ -1,9 +1,0 @@
-version: "2"
-
-services:
-  Election:
-    container_name: ms-election
-    build: ./
-    ports:
-      - "8082:8082"
-    image: "spring/ms-election"
