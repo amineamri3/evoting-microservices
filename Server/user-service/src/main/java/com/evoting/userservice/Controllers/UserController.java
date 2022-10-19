@@ -2,11 +2,13 @@ package com.evoting.userservice.Controllers;
 
 
 import com.evoting.userservice.Exceptions.UserNotFoundException;
+import com.evoting.userservice.Models.Role;
 import com.evoting.userservice.Models.User;
 import com.evoting.userservice.Services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -20,13 +22,26 @@ public class UserController {
     @Autowired
     UserService userService;
 
+    public UserController(UserService userService) {
+        this.userService = userService;
+    }
+
     @RequestMapping(method = RequestMethod.GET, value = "/hello")
     public String sayHello() {
         return "Hello World";
     }
 
-    public UserController(UserService userService) {
-        this.userService = userService;
+
+    @PostMapping("/create")
+    public ResponseEntity<User> createUser(@RequestBody User userDto) {
+        if(userService.getUserByCin(userDto.getCin())!= null){
+            return new ResponseEntity<>(HttpStatus.CONFLICT);
+        }
+        else{
+            User user = this.userService.createUser(userDto);
+            return new ResponseEntity<>(user, HttpStatus.CREATED);
+        }
+
     }
 
     @GetMapping("/getAll")
@@ -47,24 +62,37 @@ public class UserController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
-    @PostMapping("/create")
-    public ResponseEntity<User> createUser(@RequestBody User userDto) {
-        System.out.println("user m" + userDto);
-        System.out.println("test: " + userService);
-        User user = this.userService.createUser(userDto);
-        return new ResponseEntity<>(user, HttpStatus.CREATED);
 
+    @GetMapping(value ="getByCin/{cin}")
+    public ResponseEntity<User> getUserByCin(@PathVariable("cin") Integer cin) {
+        Optional<User> user = this.userService.getUserByCin(cin);
+        if (user.isPresent()) {
+            return new ResponseEntity<>(user.get(), HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 
-    @PutMapping(value ="updateUser/{id}")
+    @GetMapping(value ="getByRole/{role}")
+    public ResponseEntity<List<User>> getUsersByCin(@PathVariable("role") Role role) {
+        List<User> users = this.userService.getUsersByRole(role);
+        if (users.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        } else {
+            return new ResponseEntity<>(users, HttpStatus.OK);
+        }
+    }
+
+
+    @PutMapping(value ="update/{id}")
     public ResponseEntity<User> updateUser(@PathVariable("id") UUID id, @RequestBody User userDto) throws UserNotFoundException {
         return new ResponseEntity<>(this.userService.updateUser(userDto, id), HttpStatus.OK);
     }
 
-    @DeleteMapping(value ="deleteUser/{id}")
+    @DeleteMapping(value ="delete/{id}")
     public ResponseEntity<HttpStatus> deleteUser(@PathVariable("id") UUID id) {
         try {
-            this.userService.deleteUser(id);
+            this.userService.deleteById(id);
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);

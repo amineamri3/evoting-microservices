@@ -1,5 +1,6 @@
 package com.evoting.userservice.Services;
 
+import com.evoting.userservice.Models.Role;
 import com.evoting.userservice.Models.User;
 import org.springframework.stereotype.Service;
 
@@ -18,5 +19,9 @@ public interface UserService {
 
     User updateUser(User employee, UUID id);
 
-    void deleteUser(UUID id);
+    void deleteById(UUID id);
+
+    Optional<User> getUserByCin(Integer cin);
+
+    List<User> getUsersByRole(Role role);
 }

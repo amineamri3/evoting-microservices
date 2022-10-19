@@ -1,9 +1,11 @@
 package com.evoting.userservice.Services;
 
 import com.evoting.userservice.Exceptions.UserNotFoundException;
+import com.evoting.userservice.Models.Role;
 import com.evoting.userservice.Models.User;
 import com.evoting.userservice.Respository.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,8 +18,17 @@ public class UserServiceImpl implements UserService {
     @Autowired
     UserRepo userRepo;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
     public UserServiceImpl(UserRepo userRepo) {
         this.userRepo = userRepo;
+    }
+
+    @Override
+    public User createUser(User user) {
+        user.setPsw(passwordEncoder.encode(user.getPsw()));
+        return userRepo.save(user);
     }
 
     @Override
@@ -31,8 +42,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User createUser(User user) {
-        return userRepo.save(user);
+    public Optional<User> getUserByCin(Integer cin) {
+        return userRepo.findByCin(cin);
+    }
+
+    @Override
+    public List<User> getUsersByRole(Role role) {
+        return userRepo.findByRole(role);
     }
 
     @Override
@@ -52,7 +68,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void deleteUser(UUID id) {
+    public void deleteById(UUID id) {
         userRepo.deleteById(id);
     }
+
 }
