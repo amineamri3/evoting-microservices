@@ -4,6 +4,7 @@ import {Component, HostBinding, OnInit} from '@angular/core';
 import {Store} from '@ngrx/store';
 import {AppService} from '@services/app.service';
 import {Observable} from 'rxjs';
+import {Router} from "@angular/router";
 
 const BASE_CLASSES = 'main-sidebar elevation-4';
 @Component({
@@ -18,6 +19,7 @@ export class MenuSidebarComponent implements OnInit {
     public menu = MENU;
 
     constructor(
+      private router : Router,
         public appService: AppService,
         private store: Store<AppState>
     ) {}
@@ -29,6 +31,9 @@ export class MenuSidebarComponent implements OnInit {
         });
         this.user = this.appService.user;
     }
+  navigateTo(path: string){
+    this.router.navigate([path]);
+  }
 }
 
 export const MENU = [
@@ -44,7 +49,7 @@ export const MENU = [
     },
     {
         name: 'Main Menu',
-        iconClasses: 'fas fa-folder',        
+        iconClasses: 'fas fa-folder',
         children: [
             {
                 name: 'Sub Menu',

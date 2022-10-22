@@ -1,0 +1,18 @@
+<button class="btn btn-info" [routerLink]="['/list-elections']">Retour</button>
+<div class="card">
+  <div class="card-header">
+    <h3 class="card-title">
+      <i class="fas fa-chart-pie mr-1"></i>
+      Répartition des votes pour l'élection : {{nomElection}}
+    </h3>
+  </div><!-- /.card-header -->
+  <h4 *ngIf="!resultStatus" class="status">Pas des votes pour cette election</h4>
+  <div class="card-body">
+    <div class="tab-content p-0">
+      <div class="chart tab-pane active" id="pie-chart">
+        <canvas id="piechart">{{pieChart}}</canvas>
+      </div>
+    </div>
+  </div><!-- /.card-body -->
+</div>
+<!-- /.card -->

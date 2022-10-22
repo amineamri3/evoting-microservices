@@ -1,0 +1,43 @@
+<h2>Modifier Election</h2>
+<form [formGroup]="updateForm" (ngSubmit)="onSubmit()" class="update-form">
+  <div [formGroupName]="'electionData'">
+    <div class="form-group">
+      <label for="codeElection">Code Election</label>
+      <input type="number" id="codeElection" class="form-control" [formControlName]="'codeElection'" disabled>
+    </div>
+    <div class="form-group">
+      <label for="nomElection">Nom Election</label>
+      <input type="text" id="nomElection" class="form-control" [formControlName]="'nomElection'">
+      <span class="help-block" *ngIf="updateForm.get('electionData.nomElection')!.invalid
+            && updateForm.get('electionData.nomElection')!.touched">
+              <span *ngIf="updateForm.hasError('required','electionData.nomElection')">Veuillez ajouter un nom</span>
+          </span>
+    </div>
+    <div class="form-group">
+      <label for="typeElection">Type Election</label>
+      <select class="form-select form-control"
+              id="typeElection"
+              aria-label="Default select example"
+              [formControlName]="'typeElection'">
+        <option disabled selected hidden>Choisir le type d'élection</option>
+        <option value="{{type}}" *ngFor="let type of typesElection">{{type}}</option>
+      </select>
+      <span class="help-block" *ngIf="updateForm.get('electionData.typeElection')!.invalid
+            && updateForm.get('electionData.typeElection')!.touched">
+              <span *ngIf="updateForm.hasError('required','electionData.typeElection')">Veuillez ajouter un type</span>
+            </span>
+    </div>
+    <div class="form-group">
+      <label for="dateElection">Date Election</label>
+      <input type="date" id="dateElection" class="form-control" [formControlName]="'dateElection'">
+      <span class="help-block" *ngIf="updateForm.get('electionData.dateElection')!.invalid
+            && updateForm.get('electionData.dateElection')!.touched">
+              <span *ngIf="updateForm.hasError('required','electionData.dateElection')">Veuillez ajouter un date</span>
+            </span>
+    </div>
+  </div>
+  <div class="btns">
+    <button class="btn btn-primary" type="submit" [disabled]="updateForm.invalid || updateForm.untouched">Modifier</button>
+    <button class="btn btn-secondary" (click)="onReset()">Annuler</button>
+  </div>
+</form>

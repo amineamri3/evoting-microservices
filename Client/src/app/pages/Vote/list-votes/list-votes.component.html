@@ -1,0 +1,23 @@
+<div class="card-body">
+  <input type="search" [(ngModel)]="search" class="form-control" placeholder="Rechercher">
+</div>
+<table id="example1" class="table table-borderless table-striped table-hover">
+  <thead class="thead-list">
+  <tr>
+    <th>N° Vote</th>
+    <th>Date Vote</th>
+    <th>Nom Election</th>
+    <th>Nom Candidat</th>
+    <th>Nom Parti</th>
+  </tr>
+  </thead>
+  <tbody *ngFor="let vote of votes | searchfilter: search; let i = index">
+  <tr>
+    <td>{{i+1}}</td>
+    <td>{{vote.dateVote}}</td>
+    <td>{{vote.nomElection}}</td>
+    <td>{{vote.nomCandidat}}</td>
+    <td>{{vote.nomParti}}</td>
+  </tr>
+  </tbody>
+</table>

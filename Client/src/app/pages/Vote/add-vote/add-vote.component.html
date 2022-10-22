@@ -1,0 +1,44 @@
+<form class="add-form" [formGroup]="addForm" (ngSubmit)="onSubmit()">
+  <div [formGroupName]="'voteData'" >
+    <div class="form-group">
+      <label for="election" class="form-label">Election</label>
+      <select id="election" class="form-select form-control" aria-label="Default select example" (change)="electionSelected($event)" [formControlName]="'election'">
+        <option selected disabled hidden>Choisir l'élection désirée</option>
+        <option  value="{{election.nomElection}}" *ngFor="let election of elections">{{election.nomElection}}</option>
+      </select>
+      <span class="help-block" *ngIf="addForm.get('voteData.election')!.invalid
+            && addForm.get('voteData.election')!.touched">
+              <span *ngIf="addForm.hasError('required','voteData.election')">Veuillez ajouter un type</span>
+            </span>
+    </div>
+    <div class="form-group">
+      <label for="parti" class="form-label">Parti Politique</label>
+      <select id="parti" class="form-select form-control" aria-label="Default select example" (change)="partiSelected($event)" [formControlName]="'parti'">
+        <option selected disabled hidden>Choisir une parti politique</option>
+        <option [disabled]="disableParti" value="{{parti.nomParti}}" *ngFor="let parti of partis">{{parti.nomParti}}</option>
+      </select>
+      <span class="help-block" *ngIf="addForm.get('voteData.parti')!.invalid
+            && addForm.get('voteData.parti')!.touched">
+              <span *ngIf="addForm.hasError('required','voteData.parti')">Veuillez ajouter un type</span>
+            </span>
+    </div>
+    <div class="form-group">
+      <label for="candidat" class="form-label">Candidat</label>
+      <select id="candidat" class="form-select form-control" aria-label="Default select example" [formControlName]="'candidat'">
+        <option selected disabled hidden>Choisir un candidat</option>
+        <option [disabled]="disableCandidat" value="{{candidat.nomCandidat}}" *ngFor="let candidat of candidats">{{candidat.nomCandidat}}</option>
+      </select>
+      <span class="help-block" *ngIf="addForm.get('voteData.candidat')!.invalid
+            && addForm.get('voteData.candidat')!.touched">
+              <span *ngIf="addForm.hasError('required','voteData.candidat')">Veuillez ajouter un type</span>
+            </span>
+    </div>
+  </div>
+  <div class="form-group btns">
+    <button class="btn btn-primary" type="submit" [disabled]="addForm.invalid || addForm.untouched">Ajouter</button>
+    <button class="btn btn-secondary" (click)="onReset()">Annuler</button>
+  </div>
+
+
+
+</form>

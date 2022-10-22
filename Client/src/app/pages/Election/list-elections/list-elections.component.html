@@ -1,0 +1,68 @@
+<div class="card-body">
+  <input type="search" [(ngModel)]="search" class="form-control" placeholder="Rechercher">
+  <div class="order-and-size">
+    <span class="form-control-plaintext">Ordre par :
+      <select (change)="sortBy($event)" class="form-select-sm">
+        <option disabled selected>Choisir type de l'ordre</option>
+        <option *ngFor="let type of sortTypes" [ngValue]="type">
+          {{ type }}
+        </option>
+      </select>
+    </span>
+    <span class="form-control-plaintext">
+      Nombre des élements :
+      <select (change)="handlePageSizeChange($event)" class="form-select-sm ">
+        <option *ngFor="let size of pageSizes" [ngValue]="size">
+          {{ size }}
+        </option>
+      </select>
+    </span>
+  </div>
+  <span class="form-control-plaintext">
+      <button class="btn btn-primary" [routerLink]="['/add-election']">Ajouter une nouvelle Election</button>
+    </span>
+</div>
+
+<table id="example1" class="table table-borderless table-striped table-hover">
+  <thead class="thead-list">
+  <tr>
+    <th>N°</th>
+    <th>Nome Election</th>
+    <th>Type Election</th>
+    <th>Date Election</th>
+    <th>Actions</th>
+  </tr>
+  </thead>
+  <tbody *ngFor="let election of elections | searchfilter: search | paginate : {
+                itemsPerPage: pageSize,
+                currentPage: offset,
+                totalItems: count
+                };">
+  <tr>
+    <td>{{election.codeElection}}</td>
+    <td>{{election.nomElection}}</td>
+    <td>{{election.typeElection}}</td>
+    <td>{{election.dateElection}}</td>
+    <button class="btn btn-info" (click)="updateElection(election.codeElection)">Modifier</button>
+    <div class="divider"></div>
+    <button class="btn btn-success" (click)="detailElection(election.codeElection)">Détail</button>
+  </tr>
+  </tbody>
+</table>
+<br>
+<div class="col">
+  <div class="col-sm-12 col-md-7">
+    <div class="dataTables_paginate paging_simple_numbers" id="example1_paginate">
+      <pagination-controls
+        previousLabel="Prev"
+        nextLabel="Next"
+        [responsive]="true"
+        (pageChange)="handlePageChange($event)"
+        class="pagination"
+      ></pagination-controls>
+    </div>
+  </div>
+  <div class="col">
+    <button class="btn btn-danger" (click)="deleteAllElection()">Delete All</button>
+  </div>
+</div>

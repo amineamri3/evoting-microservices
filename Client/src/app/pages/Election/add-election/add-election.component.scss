@@ -1,0 +1,16 @@
+.add-form{
+  width: 60%;
+  padding: 5%;
+}
+.btns {
+  .btn-primary{
+    margin-right: 5%;
+  }
+}
+h2{
+  margin-left: 5%;
+  margin-top: 2%;
+}
+input.ng-invalid.ng-touched {
+  border: 1px solid red;
+}

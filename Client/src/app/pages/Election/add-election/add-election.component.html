@@ -1,0 +1,37 @@
+<h2>Ajouter Election</h2>
+<form class="add-form" [formGroup]="addForm" (ngSubmit)="onSubmit()">
+  <div [formGroupName]="'electionData'" >
+    <div class="form-group">
+      <label for="nomElection" class="form-label">Nom de l'élection</label>
+      <input type="text" class="form-control" id="nomElection" placeholder="Nom" [formControlName]="'nomElection'">
+      <span class="help-block" *ngIf="addForm.get('electionData.nomElection')!.invalid
+            && addForm.get('electionData.nomElection')!.touched">
+              <span *ngIf="addForm.hasError('required','electionData.nomElection')">Veuillez ajouter un nom</span>
+          </span>
+    </div>
+    <div class="form-group">
+      <label for="typeElection" class="form-label">Type de l'élection</label>
+      <select class="form-select form-control" id="typeElection" aria-label="Default select example" [formControlName]="'typeElection'">
+        <option selected disabled hidden>Choisir le type d'élection</option>
+        <option value="{{type}}" *ngFor="let type of typesElection">{{type}}</option>
+      </select>
+      <span class="help-block" *ngIf="addForm.get('electionData.typeElection')!.invalid
+            && addForm.get('electionData.typeElection')!.touched">
+              <span *ngIf="addForm.hasError('required','electionData.typeElection')">Veuillez ajouter un type</span>
+            </span>
+    </div>
+    <div class="form-group">
+      <label for="dateElection" class="form-label">Date de l'élection</label>
+      <input type="date" class="form-control" id="dateElection" placeholder="Nom" [formControlName]="'dateElection'">
+      <span class="help-block" *ngIf="addForm.get('electionData.dateElection')!.invalid
+            && addForm.get('electionData.dateElection')!.touched">
+              <span *ngIf="addForm.hasError('required','electionData.dateElection')">Veuillez ajouter un date</span>
+            </span>
+    </div>
+  </div>
+  <div class="form-group btns">
+    <button class="btn btn-primary" type="submit" [disabled]="addForm.invalid || addForm.untouched">Ajouter</button>
+    <button class="btn btn-secondary" (click)="onReset()">Annuler</button>
+  </div>
+
+</form>

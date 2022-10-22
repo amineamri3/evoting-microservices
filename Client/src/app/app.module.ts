@@ -10,7 +10,7 @@ import {HeaderComponent} from '@modules/main/header/header.component';
 import {FooterComponent} from '@modules/main/footer/footer.component';
 import {MenuSidebarComponent} from '@modules/main/menu-sidebar/menu-sidebar.component';
 import {BlankComponent} from '@pages/blank/blank.component';
-import {ReactiveFormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {ProfileComponent} from '@pages/profile/profile.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {RegisterComponent} from '@modules/register/register.component';
@@ -35,6 +35,15 @@ import {uiReducer} from './store/ui/reducer';
 import {ProfabricComponentsModule} from '@profabric/angular-components';
 import {defineCustomElements} from '@profabric/web-components/loader';
 import { SidebarSearchComponent } from './components/sidebar-search/sidebar-search.component';
+import { AddElectionComponent } from './pages/Election/add-election/add-election.component';
+import { ListElectionsComponent } from './pages/Election/list-elections/list-elections.component';
+import { DetailElectionComponent } from './pages/Election/detail-election/detail-election.component';
+import { UpdateElectionComponent } from './pages/Election/update-election/update-election.component';
+import { SearchfilterPipe } from '@pages/Election/searchfilter/searchfilter.pipe';
+import {NgxPaginationModule} from "ngx-pagination";
+import { AddVoteComponent } from './pages/Vote/add-vote/add-vote.component';
+import { ListVotesComponent } from './pages/Vote/list-votes/list-votes.component';
+import { VoteStatsComponent } from './pages/Vote/vote-stats/vote-stats.component';
 
 defineCustomElements();
 registerLocaleData(localeEn, 'en-EN');
@@ -61,22 +70,32 @@ registerLocaleData(localeEn, 'en-EN');
         SubMenuComponent,
         MenuItemComponent,
         ControlSidebarComponent,
-        SidebarSearchComponent
+        SidebarSearchComponent,
+        AddElectionComponent,
+        ListElectionsComponent,
+        DetailElectionComponent,
+        UpdateElectionComponent,
+        SearchfilterPipe,
+        AddVoteComponent,
+        ListVotesComponent,
+        VoteStatsComponent
     ],
-    imports: [
-        BrowserModule,
-        StoreModule.forRoot({auth: authReducer, ui: uiReducer}),
-        HttpClientModule,
-        AppRoutingModule,
-        ReactiveFormsModule,
-        BrowserAnimationsModule,
-        ToastrModule.forRoot({
-            timeOut: 3000,
-            positionClass: 'toast-top-right',
-            preventDuplicates: true
-        }),
-        ProfabricComponentsModule
-    ],
+  imports: [
+    BrowserModule,
+    StoreModule.forRoot({auth: authReducer, ui: uiReducer}),
+    HttpClientModule,
+    AppRoutingModule,
+    ReactiveFormsModule,
+    BrowserAnimationsModule,
+    ToastrModule.forRoot({
+      timeOut: 3000,
+      positionClass: 'toast-top-right',
+      preventDuplicates: true
+    }),
+    ProfabricComponentsModule,
+    FormsModule,
+    NgxPaginationModule
+  ],
     providers: [],
     bootstrap: [AppComponent]
 })

@@ -1,0 +1,29 @@
+<h2>Détail de {{election.nomElection}}</h2>
+<div class="container body">
+  <div class="row">
+    <table class="table table-borderless">
+      <tr>
+        <th>Code Election:</th>
+        <td>{{election.codeElection}}</td>
+      </tr>
+      <tr>
+        <th>Nom Election :</th>
+        <td>{{election.nomElection}}</td>
+      </tr>
+      <tr>
+        <th>Type Election :</th>
+        <td>{{election.typeElection}}</td>
+      </tr>
+      <tr>
+        <th>Date Election :</th>
+        <td>{{election.dateElection}}</td>
+      </tr>
+    </table>
+  </div>
+  <button class="btn btn-danger"(click)="deleteElection(election.codeElection)">Supprimer</button>
+  <div class="divider"></div>
+  <button class="btn btn-info" [routerLink]="['/list-elections']">Retour</button>
+  <div class="divider"></div>
+  <button class="btn btn-success" [routerLink]="['/vote-stats',election.nomElection]">Statistiques</button>
+
+</div>
