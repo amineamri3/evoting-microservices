@@ -1,0 +1,26 @@
+version: "3"
+services:
+  election-db:
+    image: mysql:8
+    ports:
+      - "3306:3306"
+    networks:
+      - election-mysql-network
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=election_ms
+
+  election-container:
+    image: ms-election
+    ports:
+      - "8082:8082"
+    networks:
+      - election-mysql-network
+    depends_on:
+      - election-db
+
+
+
+networks:
+  election-mysql-network:
+    driver: bridge
