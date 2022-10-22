@@ -1,4 +1,4 @@
-package com.evoting.authservice.Models;
+package com.evoting.userservice.Models;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
@@ -12,6 +12,7 @@ import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL;
 @Data
 @SuperBuilder
 @JsonInclude(NON_NULL)
+
 public class Response {
     protected int statusCode;
     protected HttpStatus status;
