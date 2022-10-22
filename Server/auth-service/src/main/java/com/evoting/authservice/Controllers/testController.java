@@ -1,6 +1,6 @@
 package com.evoting.authservice.Controllers;
 
-import com.evoting.authservice.Models.Response;
+import com.evoting.userservice.Models.Response;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,18 +22,18 @@ public class testController {
 
             Map<String, String> mydata = new HashMap<String, String>(){
                 {
-                    put("key1Example", "Value1Example");
-                    put("key2Example", "Value2Example");
+            put("key1Example", "Value1Example");
+            put("key2Example", "Value2Example");
                 }
             };
             return ResponseEntity.ok(
-                    Response.builder()
-                            .data(mydata)
-                            .message("response success")
-                            .status(OK)
-                            .statusCode(OK.value())
-                            .build()
-            );
+                Response.builder()
+                        .data(mydata)
+                        .message("response success")
+                        .status(OK)
+                        .statusCode(OK.value())
+                        .build()
+        );
         }else {
             return ResponseEntity.ok(
                     Response.builder()
