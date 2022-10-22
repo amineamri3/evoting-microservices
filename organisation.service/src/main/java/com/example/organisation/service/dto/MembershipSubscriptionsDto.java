@@ -10,4 +10,6 @@ import lombok.NoArgsConstructor;
 public class MembershipSubscriptionsDto {
     private Long id;
     private String number;
+    private String organisation;
+
 }

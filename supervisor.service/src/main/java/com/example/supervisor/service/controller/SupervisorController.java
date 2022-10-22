@@ -18,6 +18,7 @@ public class SupervisorController {
 //http://localhost:8081/api/supervisor
     @PostMapping
 @ResponseStatus(HttpStatus.CREATED)
+   // @RequestMapping("/api/supervisor/create")
     public void createSupervisor(@RequestBody SupervisorRequest supervisorRequest){
         supervisorService.createSupervisor(supervisorRequest);
 
@@ -25,8 +26,23 @@ public class SupervisorController {
     //http://localhost:8081/api/supervisor
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public List<SupervisorResponse> getAllSupervisors(){
+    //@RequestMapping("")
+    //@RequestMapping("/api/supervisor/getAll")
+   public List<SupervisorResponse> getAllSupervisors(){
         return supervisorService.getAllSupervisors();
+    }
+    @GetMapping
+    @ResponseStatus(HttpStatus.OK)
+    @RequestMapping("/SSS")
+
+    public List<SupervisorResponse>isSbuscribe (@RequestParam List<String> Organisation){
+        return supervisorService.isSubscribe(Organisation);
+    }
+    @DeleteMapping("/delete/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    private void deleteBook(@PathVariable("id") int id)
+    {
+       supervisorService .delete(id);
     }
 
 

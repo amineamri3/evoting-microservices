@@ -7,6 +7,8 @@ import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.math.BigInteger;
+
 @Document(value="supervisor")
 @AllArgsConstructor
 @NoArgsConstructor
@@ -18,6 +20,8 @@ public class Supervisor {
     private  String FirstName;
     private String LastName;
     private  String Organisation;
+    private Integer Nbre;
+
 
 
 }
