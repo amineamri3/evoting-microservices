@@ -18,15 +18,20 @@ This project consists of creating a web application that allows for online votin
 Our project is built mainly with **Spring Boot**, but we also have a service running in **NodeJS**.
 #### Service Discovery
 As this project is built on a micro-service architecture, Having a Service Discovery server is important, luckly **Eureka** Exists in the spring environment, it's a powerful and easy to implement tool developed by Netflix to dynamically register services and track their status.
-#### Databases
-We the following databases in this project:
-- H2
-- MySQL
-- MongoDB
+
 #### Authentification
 We opted to use JWT as our mean of securing the communication, mainly as it's the easiest solution to implement across both Spring and NodeJS and because it's lightwight.
 #### Routing
 To make sure our solution is clean, maintainable and scalable we opted to use a API Gateway to route all our requests, We used **Zuul** in combination with **Eureka** to route requests dynamically to registered services.
 #### DevOps
 We used **Docker** to assure a smooth running environment, with each micro-service in a seperate container.
+
+#### Databases
+We the following databases in this project:
+- H2
+- MySQL
+- MongoDB
+##### Database Mock
+
+![App Screenshot](https://media.discordapp.net/attachments/1021096122049106010/1025848627572256910/Class_Diagram.png?width=695&height=676)
 
