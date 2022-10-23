@@ -9,7 +9,6 @@ import java.util.Map;
 
 import static org.springframework.http.HttpStatus.*;
 
-
 @RestController
 @RequestMapping("/test")
 public class testController {
