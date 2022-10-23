@@ -1,10 +1,10 @@
-package com.evoting.userservice;
+package com.evoting.voteservice;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class AuthServiceApplicationTests {
+class VoteServiceApplicationTests {
 
     @Test
     void contextLoads() {
