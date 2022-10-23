@@ -6,6 +6,7 @@ const candidateSchema = new Schema(
       Status: String,
       Reason: String,
       ElectionId: String,
+      CandidateId: String
     },
     { timestamps: true }
   );

@@ -1,33 +1,22 @@
 const express = require("express");
-const multer = require("multer");
 const { v4: uuidv4 } = require('uuid');
 const mime = require("mime")
 const router = express.Router();
-const candidateController = require("../controllers/condidateController")
+const candidateController = require("../controllers/candidatureController")
 const candidateControllerInst = new candidateController()
 
-const storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-        cb(null, './uploads')
-    },
-    filename: function (req, file, cb) {
-        file.originalname = uuidv4()+"."+mime.getExtension(file.mimetype)
-        cb(null, file.originalname );
-    }
-});
-const upload = multer({storage})
 
-router.post("/uploadCV",upload.single('cv'),(req,res)=>{
-    candidateControllerInst.uploadAndResolveCV(req,res)
+router.post("/candidate/inscrire",(req,res)=>{
+    candidateControllerInst.inscrire(req,res)
 })
-router.get("/download/:name",(req,res)=>{
-    candidateControllerInst.downloadFile(req,res)
+router.get("/candidate/desinscrire",(req,res)=>{
+    candidateControllerInst.desinscrire(req,res)
 })
-router.put("/update",(req,res)=>{
-    candidateControllerInst.updateData(req,res)
+router.put("/candidate/accept",(req,res)=>{
+    candidateControllerInst.accept(req,res)
 })
-router.delete("/delete",(req,res)=>{
-    candidateControllerInst.deleteData(req,res)
+router.delete("candidate/refuse",(req,res)=>{
+    candidateControllerInst.refuse(req,res)
 })
 
 module.exports = router;
