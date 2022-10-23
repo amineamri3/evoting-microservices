@@ -22,6 +22,9 @@ public class UserController {
     @Autowired
     UserService userService;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
     public UserController(UserService userService) {
         this.userService = userService;
     }
@@ -34,7 +37,8 @@ public class UserController {
 
     @PostMapping("/create")
     public ResponseEntity<User> createUser(@RequestBody User userDto) {
-        if(userService.getUserByCin(userDto.getCin())!= null){
+        System.out.println(userService.getUserByCin(userDto.getCin()));
+        if(userService.getUserByCin(userDto.getCin()).isPresent()){
             return new ResponseEntity<>(HttpStatus.CONFLICT);
         }
         else{
@@ -63,15 +67,32 @@ public class UserController {
         }
     }
 
+    @GetMapping(value ="/authentication/{cin}/{psw}")
+    public ResponseEntity<User> getUserByCin(@PathVariable("cin") Integer cin,@PathVariable("psw") String psw) {
+        Optional<User> user = this.userService.getUserByCin(cin);
+        if (user.isPresent()) {
+            if (passwordEncoder.matches(psw , user.get().getPsw())) {
+                System.out.println(user.get());
+                return new ResponseEntity<>(user.get(), HttpStatus.OK);
+            }else{
+                System.out.println("conflict");
+                return new ResponseEntity<>(HttpStatus.CONFLICT);
+            }
+        } else {
+            return new ResponseEntity<>(HttpStatus.CONFLICT);
+        }
+    }
+
     @GetMapping(value ="getByCin/{cin}")
     public ResponseEntity<User> getUserByCin(@PathVariable("cin") Integer cin) {
         Optional<User> user = this.userService.getUserByCin(cin);
         if (user.isPresent()) {
             return new ResponseEntity<>(user.get(), HttpStatus.OK);
         } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(null,HttpStatus.NOT_FOUND);
         }
     }
+
 
     @GetMapping(value ="getByRole/{role}")
     public ResponseEntity<List<User>> getUsersByCin(@PathVariable("role") Role role) {
