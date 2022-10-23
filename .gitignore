@@ -2,3 +2,5 @@
 Server/.idea/
 
 Server/eureka-server/.mvn/
+
+Server/candidature-service/package-lock.json

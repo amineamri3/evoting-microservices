@@ -1,7 +1,8 @@
 const axios = require("axios")
 const defaultData = require("../defaultdata")
-const cv = require("../models/cv")
+const cv = require("../models/candidature")
 const { uniqueNamesGenerator, Config, starWars } = require ('unique-names-generator');
+const { token } = require("morgan");
 
 class condidateController {
 
@@ -34,24 +35,27 @@ class condidateController {
         return res.json({status:"done",candidate_data})
     }
 
-    async downloadFile(req,res){
-        const file = `./uploads/${req.params.name}`;
-        return res.download(file);
+    async inscrire(req,res) {
+        //get token and election from payload
+        jwt = req.body.token
+        election = req.body.election
+        if(!jwt || !election) res.json({error:"Bad request"})
+
+        cin = await axios.get("http://localhost:7999/auth-service/ValidateJwt",{}, {
+            headers: {
+              'Authorization': `Bearer ${jwt}` 
+            }
+          })
+        str = JSON.stringify(cin);
+        console.log(str); // Logs output to dev tools console.
+        //get cin from auth service
+        
+        //get user data from user service
+
+        //sign the user up for the election
+
     }
 
-    async updateData(req,res){
-        const payload = req.body
-        const _id = req.body._id
-        delete payload._id
-        const updatedData = await cv.findOneAndUpdate({_id},{raw_data:payload},{new:true})
-        return res.json({success:true,updatedData})
-    }
-
-    async deleteData(req,res){
-        const {_id} = req.body
-        await cv.deleteOne({_id})
-        return res.json({success:true})
-    }
 }
 
 module.exports = condidateController
