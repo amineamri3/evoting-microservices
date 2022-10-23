@@ -1,7 +1,7 @@
 FROM openjdk:8
 
-ADD target/ms-election.jar ms-election.jar
+ADD target/election-service.jar election-service.jar
 
 EXPOSE 8082
 
-ENTRYPOINT ["java","-jar","ms-election.jar"]
+ENTRYPOINT ["java","-jar","election-service.jar"]

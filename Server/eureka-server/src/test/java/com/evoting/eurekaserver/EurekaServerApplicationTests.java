@@ -1,4 +1,4 @@
-package ecommerce.cartservice.eurekaserver;
+package com.evoting.eurekaserver;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
