@@ -1,0 +1,102 @@
+{
+    "swagger": "2.0",
+    "info": {
+      "version": "1.0.0",
+      "title": "CV Project CRUD",
+      "description": "API"
+    },
+    "host": "localhost:3000",
+    "basePath": "/api/candidate",
+    "tags": [
+      {
+        "name": "Cv"
+      }
+    ],
+    "schemes": ["http"],
+    "consumes": ["application/json","multipart/form-data"],
+    "produces": ["application/json"],
+    "definitions":{
+        "CV":{
+            "properties":{
+                "name":"string"
+            }
+        }
+    },
+    "paths": {
+        "/uploadCV": {
+          "post": {
+            "tags": [
+              "Users"
+            ],
+            "description": "Upload user CV",
+            "parameters": [
+              {
+                "name": "cv",
+                "in": "formData",
+                "description": "User CV",
+                "type": "file"
+
+              }
+            ],
+            "produces": [
+              "application/json"
+            ],
+            "responses": {
+              "200": {
+                "description": "CV is uploaded"
+               
+              }
+            }
+          } 
+        },
+        "/updateData": {
+            "put": {
+              "tags": [
+                "Users"
+              ],
+              "description": "update uploaded user CV",
+              "parameters": [
+                {
+                    "name": "user",
+                    "in": "body",
+                    "description": "Cv to Update",
+                    "schema":{"$ref":"#/definitions/CV"}
+                  }
+              ],
+              "produces": [
+                "application/json"
+              ],
+              "responses": {
+                "200": {
+                  "description": "CV is uploaded"
+                 
+                }
+              }
+            } 
+          },
+          "/deleteData": {
+            "delete": {
+              "tags": [
+                "Users"
+              ],
+              "description": "update uploaded user CV",
+              "parameters": [
+                {
+                    "name": "user",
+                    "in": "body",
+                    "description": "Cv to Update"
+                  }
+              ],
+              "produces": [
+                "application/json"
+              ],
+              "responses": {
+                "200": {
+                  "description": "CV is uploaded"
+                 
+                }
+              }
+            } 
+          } 
+    }
+  }
