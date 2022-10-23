@@ -1,0 +1,10 @@
+version: "2.2"
+
+services:
+  Candidate:
+    container_name: user-service
+    build: ./
+    ports:
+      - "8081:8081"
+    hostname: user
+    image: "user-service"
