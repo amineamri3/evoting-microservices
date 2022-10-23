@@ -12,7 +12,7 @@ This E-Voting back-end is built on a micro-service architecture, you can find mo
 **Eureka** Server for service discovery
 
 #### API Gateway
-**NodeJS** server running as a proxy/api-gateway
+**Zuul** Running as a API Gateway and routing using Eureka's registry
 
 #### Micro Services
 | Service     | Port   | Database |Created By                                    |Documentation|
