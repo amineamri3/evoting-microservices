@@ -40,7 +40,7 @@ app.use(require('./routes/index'));
 
 app.listen(PORT, () => {
   console.log(`user-service on ${PORT}`);
-  mongoose.connect('mongodb+srv://root:root@cluster0.kyifc.mongodb.net/myFirstDatabase?retryWrites=true&w=majority').then(()=>
+  mongoose.connect('mongodb+srv://admin:admin@cluster0.0wznwor.mongodb.net/?retryWrites=true&w=majority').then(()=>
     console.log("mongoDB connected")
   ).catch(err => {
     console.log(err)
