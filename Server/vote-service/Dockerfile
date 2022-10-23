@@ -1,7 +1,7 @@
 FROM openjdk:8
 
-ADD target/ms-vote.jar ms-vote.jar
+ADD target/vote-service.jar vote-service.jar
 
 EXPOSE 8083
 
-ENTRYPOINT ["java","-jar","ms-vote.jar"]
+ENTRYPOINT ["java","-jar","vote-service.jar"]
