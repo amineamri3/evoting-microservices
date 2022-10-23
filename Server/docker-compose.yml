@@ -9,18 +9,17 @@ services:
 #    hostname: eureka
 #    image: "eureka-server"
 
-
-    user-service:
-      container_name: user-service
-      build: ./user-service
-      ports:
-        - "8081:8081"
-      hostname: user
-      environment:
-        - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://eureka-server:8761/eureka/
-      image: "user-service"
-      depends_on:
-        - Eureka
+#    user-service:
+#      container_name: user-service
+#      build: ./user-service
+#      ports:
+#        - "8081:8081"
+#      hostname: user
+#      environment:
+#        - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://eureka-server:8761/eureka/
+#      image: "user-service"
+#      depends_on:
+#        - Eureka
 
     Eureka:
       container_name: eureka-server
@@ -28,6 +27,39 @@ services:
       ports:
         - "8761:8761"
       hostname: eureka-server
-      image: "eureka-server"
       environment:
         - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://eureka-server:8761/eureka/
+      image: "eureka-server"
+
+    election-service:
+      container_name: election-service
+      build: ./election-service
+      ports:
+        - "8082:8082"
+      hostname: election
+      environment:
+        - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://eureka-server:8761/eureka/
+      image: "election-service"
+      depends_on:
+        - election-db
+        - Eureka
+      networks:
+        - election-mysql-network
+
+    election-db:
+      image: mysql:8
+      ports:
+        - "3306:3306"
+      networks:
+        - election-mysql-network
+      environment:
+        - MYSQL_ROOT_PASSWORD=root
+        - MYSQL_DATABASE=election_ms
+
+
+
+
+
+networks:
+    election-mysql-network:
+      driver: bridge
