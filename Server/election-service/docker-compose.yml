@@ -11,9 +11,13 @@ services:
       - MYSQL_DATABASE=election_ms
 
   election-container:
-    image: ms-election
+    image: election-service
+    build: ./election-service
     ports:
       - "8082:8082"
+    hostname: election
+    environment:
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://eureka-server:8761/eureka/
     networks:
       - election-mysql-network
     depends_on:
