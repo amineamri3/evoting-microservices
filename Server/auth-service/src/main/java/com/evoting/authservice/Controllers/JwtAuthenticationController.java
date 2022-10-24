@@ -51,7 +51,8 @@ public class JwtAuthenticationController {
 	public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtRequest authenticationRequest) throws Exception {
 //		authenticate(authenticationRequest.getUsername(), authenticationRequest.getPassword());
 
-		String Url = "http://localhost:7999/user-service/user/authentication/"+authenticationRequest.getCin()+"/"+authenticationRequest.getPassword();
+//		String Url = "http://localhost:7999/user-service/user/authentication/"+authenticationRequest.getCin()+"/"+authenticationRequest.getPassword();
+		String Url = "http://localhost:8081/user/authentication/"+authenticationRequest.getCin()+"/"+authenticationRequest.getPassword();
 		RestTemplate restTemplate = new RestTemplate();
 
 		HttpHeaders headers = new HttpHeaders();

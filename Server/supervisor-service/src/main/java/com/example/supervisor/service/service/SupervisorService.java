@@ -11,6 +11,7 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -54,15 +55,16 @@ public class SupervisorService {
     @SneakyThrows
     public List<SupervisorResponse> isSubscribe(List<String>Organisation){
         log.info("Cheking subscriptions");
-        return supervisorRepository.findByOrganisationIn(Organisation).stream().
+         supervisorRepository.findByOrganisationIn(Organisation).stream().
                 map(supervisor -> {
                     return SupervisorResponse.builder()
                             .Organisation(supervisor.getOrganisation())
                             .isSubscribe(supervisor.getNbre()<0)
 
                             .build();
-                })
-                                .toList();
+                });
+//                .toList();
+        return null;
     }
 
     public void delete(int id) {

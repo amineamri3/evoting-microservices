@@ -24,31 +24,31 @@ public class MembershipService {
         Membership membership =new Membership();
         membership.setMembership_number(UUID.randomUUID().toString());
 
-        List<Subscription> subscriptions = membershipRequest.getMembershipSubscriptionsDtoList()
-                .stream()
-                .map(this::mapToDto)
-                .toList();
-        membership.setMembershipsList(subscriptions);
-       List<String>Organisation= membership.getMembershipsList().stream().map(Subscription::getOrganisation).toList();
-        //call supervisor-service and place subscription if is not
-        //member yet
-        SupervisorResponse[] supervisorResponseArray= webClient.get()
-
-                .uri("http://localhost:8082/api/supervisor",
-
-                uriBuilder -> uriBuilder.queryParam("Organisation",Organisation).build())
-                        .retrieve()
-                                .bodyToMono(SupervisorResponse[].class)
-                .block();
-        boolean AllOrganisations=Arrays.stream(supervisorResponseArray).allMatch(SupervisorResponse::isSubscribe);
-       if(AllOrganisations==false){
-
-            membershipRepository.save(membership);
-           // AllOrganisations=true;
-
-        }else {
-           throw new IllegalArgumentException("vous etes deja inscrit dans une organisation!");
-       }
+//        List<Subscription> subscriptions = membershipRequest.getMembershipSubscriptionsDtoList();
+//                .stream()
+//                .map(this::mapToDto)
+//                .toList();
+//        membership.setMembershipsList(subscriptions);
+//       List<String>Organisation= membership.getMembershipsList().stream().map(Subscription::getOrganisation).toList();
+//        //call supervisor-service and place subscription if is not
+//        //member yet
+//        SupervisorResponse[] supervisorResponseArray= webClient.get()
+//
+//                .uri("http://localhost:8082/api/supervisor",
+//
+//                uriBuilder -> uriBuilder.queryParam("Organisation",Organisation).build())
+//                        .retrieve()
+//                                .bodyToMono(SupervisorResponse[].class)
+//                .block();
+//        boolean AllOrganisations=Arrays.stream(supervisorResponseArray).allMatch(SupervisorResponse::isSubscribe);
+//       if(AllOrganisations==false){
+//
+//            membershipRepository.save(membership);
+//           // AllOrganisations=true;
+//
+//        }else {
+//           throw new IllegalArgumentException("vous etes deja inscrit dans une organisation!");
+//       }
 
 
         //membershipRepository.save(membership);

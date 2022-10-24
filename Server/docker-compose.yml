@@ -1,5 +1,47 @@
 version: "2.2"
 services:
+
+    supervisor-service:
+      container_name: supervisor-service
+      build: ./supervisor-service
+      ports:
+        - "8086:8086"
+      hostname: supervisor
+      environment:
+        - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://eureka-server:8761/eureka/
+      image: "supervisor-service"
+      depends_on:
+        - Eureka
+        - gateway-service
+        - vote-db
+
+    organisation-service:
+      container_name: organisation-service
+      build: ./organisation-service
+      ports:
+        - "8087:8087"
+      hostname: organisation
+      environment:
+        - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://eureka-server:8761/eureka/
+      image: "organisation-service"
+      depends_on:
+        - Eureka
+        - gateway-service
+        - election-db
+
+    reclamation-service:
+      container_name: reclamation-service
+      build: ./reclamation-service
+      ports:
+        - "8088:8088"
+      hostname: reclamation
+      environment:
+        - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://eureka-server:8761/eureka/
+      image: "reclamation-service"
+      depends_on:
+        - Eureka
+        - gateway-service
+
     user-service:
       container_name: user-service
       build: ./user-service
