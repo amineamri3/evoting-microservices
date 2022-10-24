@@ -8,8 +8,6 @@ services:
 #      - "8761:8761"
 #    hostname: eureka
 #    image: "eureka-server"
-
-
     user-service:
       container_name: user-service
       build: ./user-service
