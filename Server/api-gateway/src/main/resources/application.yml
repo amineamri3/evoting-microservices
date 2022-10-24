@@ -1,0 +1,44 @@
+server:
+  port: 7999
+
+spring:
+  application:
+    name: gateway-service
+  zuul:
+    routes:
+      subway:
+        service-id: /user-service/**
+        path: /user-service/**
+        url: "http://localhost:8081/"
+        strip-prefix: false
+
+eureka:
+  instance:
+    appname: ${spring.application.name}
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+
+#eureka.client.fetch-registry=true
+#
+#zuul.host.connect-timeout-millis=60000
+#
+#zuul.host.max-total-connections=1000
+#zuul.host.max-per-route-connections=50
+#
+#eureka.client.serviceUrl.defaultZone= http://localhost:8761/eureka/
+#eureka.client.register-with-eureka=true
+#
+#zuul.sensitiveHeaders=
+#
+#zuul.routes.auth-service.path = /auth-service/**
+#zuul.routes.auth-service.service-id= = auth-service
+#
+#zuul.routes.user-service.path = /user-service/**
+#zuul.routes.user-service.serviceId = http://localhost:8081/user-service
+#
+#zuul.routes.election-service.path= = /election-service/**
+#zuul.routes.election-service.service-id= = election-service
+#
+#zuul.routes.node-service.path = /candidature-service/**
+#zuul.routes.node-service.service-id = candidature-service

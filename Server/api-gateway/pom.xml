@@ -9,10 +9,10 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.evoting</groupId>
-    <artifactId>inscription-service</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
-    <name>auth-service</name>
-    <description>auth-service</description>
+    <artifactId>gateway-service</artifactId>
+    <version>0.0.1</version>
+    <name>gateway-service</name>
+    <description>gateway-service</description>
     <properties>
         <java.version>1.8</java.version>
     </properties>

@@ -7,6 +7,7 @@ const ipAddr = '172.0.0.1';
 exports.registerWithEureka = function(appName, PORT) {
     const client = new Eureka({
     instance: {
+      instanceId:'node-service',
       app: appName,
       hostName: hostName,
       ipAddr: ipAddr,

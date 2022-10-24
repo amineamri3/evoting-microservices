@@ -11,6 +11,34 @@ services:
       image: "user-service"
       depends_on:
         - Eureka
+        - gateway-service
+
+    auth-service:
+      container_name: auth-service
+      build: ./auth-service
+      ports:
+        - "8080:8080"
+      hostname: auth
+      environment:
+        - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://eureka-server:8761/eureka/
+      image: "auth-service"
+      depends_on:
+        - Eureka
+        - gateway-service
+
+    node-service:
+      container_name: node-service
+      build: ./candidature-service
+      ports:
+        - "3000:3000"
+      hostname: node-service
+      environment:
+        - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=eureka-server
+      image: "candidature-service"
+      depends_on:
+        - Eureka
+        - gateway-service
+      command: "node ./index.js"
 
     election-service:
       container_name: election-service
@@ -73,6 +101,19 @@ services:
       environment:
         - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://eureka-server:8761/eureka/
       image: "eureka-server"
+
+    gateway-service:
+      container_name: gateway-service
+      build: ./inscription-service
+      ports:
+        - "7999:7999"
+      hostname: gateway-service
+      environment:
+        - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://eureka-server:8761/eureka/
+      image: "gateway-service"
+      depends_on:
+        - Eureka
+
 
 networks:
   election-mysql-network:
