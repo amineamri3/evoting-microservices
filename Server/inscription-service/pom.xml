@@ -10,9 +10,9 @@
     </parent>
     <groupId>com.evoting</groupId>
     <artifactId>inscription-service</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
-    <name>auth-service</name>
-    <description>auth-service</description>
+    <version>0.0.1</version>
+    <name>inscription-service</name>
+    <description>inscription-service</description>
     <properties>
         <java.version>1.8</java.version>
     </properties>

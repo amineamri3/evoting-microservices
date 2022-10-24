@@ -81,8 +81,6 @@ public class JwtAuthenticationController {
 			return new ResponseEntity<>(jwtTokenUtil.getUsernameFromToken(jwt),HttpStatus.OK);
 	}
 
-
-
 	private void authenticate(String username, String password) throws Exception {
 		Objects.requireNonNull(username);
 		Objects.requireNonNull(password);

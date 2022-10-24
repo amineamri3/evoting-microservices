@@ -38,6 +38,7 @@ public class UserController {
     @PostMapping("/create")
     public ResponseEntity<User> createUser(@RequestBody User userDto) {
         System.out.println(userService.getUserByCin(userDto.getCin()));
+
         if(userService.getUserByCin(userDto.getCin()).isPresent()){
             return new ResponseEntity<>(HttpStatus.CONFLICT);
         }

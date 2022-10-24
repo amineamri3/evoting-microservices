@@ -4,6 +4,7 @@ package com.evoting.inscriptionservice.Controllers;
 import com.evoting.inscriptionservice.Models.ElectionSignup;
 import com.evoting.inscriptionservice.Repositories.SignupRepo;
 import com.evoting.inscriptionservice.Services.SignupService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -16,7 +17,11 @@ import java.util.UUID;
 @RestController
 @RequestMapping(value = "/inscription")
 public class restController {
+
+
+    @Autowired
     SignupService signupService;
+
     public restController(SignupService signupService) {
         this.signupService = signupService;
     }
