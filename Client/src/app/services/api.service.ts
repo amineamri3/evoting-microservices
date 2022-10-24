@@ -11,8 +11,8 @@ export class ApiService {
     constructor(private http: HttpClient) {}
 
   //Election API
-  private readonly electionURL = 'http://localhost:8082/evoting/election';
-  private readonly voteURL = 'http://localhost:8083/evoting/vote';
+  private readonly electionURL = 'http://localhost:8082/election';
+  private readonly voteURL = 'http://localhost:8083/vote';
 
 
   getElections(): Observable<Election[]> {
