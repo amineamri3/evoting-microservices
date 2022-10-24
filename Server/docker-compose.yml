@@ -1,13 +1,5 @@
 version: "2.2"
-
 services:
-#  Candidate:
-#    container_name: eureka-server
-#    build: ./
-#    ports:
-#      - "8761:8761"
-#    hostname: eureka
-#    image: "eureka-server"
     user-service:
       container_name: user-service
       build: ./user-service
@@ -20,12 +12,70 @@ services:
       depends_on:
         - Eureka
 
+    election-service:
+      container_name: election-service
+      build: ./election-service
+      ports:
+        - "8082:8082"
+      hostname: election
+      environment:
+        - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://eureka-server:8761/eureka/
+      image: "election-service"
+      depends_on:
+        - Eureka
+        - election-db
+      networks:
+        - election-mysql-network
+
+    election-db:
+      image: mysql:8
+      ports:
+        - "3306:3306"
+      depends_on:
+        - "Eureka"
+      networks:
+        - election-mysql-network
+      environment:
+        - MYSQL_ROOT_PASSWORD=root
+        - MYSQL_DATABASE=election_ms
+
+    vote-service:
+      container_name: vote-service
+      build: ./vote-service
+      ports:
+        - "8083:8083"
+      hostname: vote
+      environment:
+        - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://eureka-server:8761/eureka/
+      image: "vote-service"
+      depends_on:
+        - Eureka
+        - vote-db
+      networks:
+        - vote-mongodb-network
+
+    vote-db:
+      image: mongo:latest
+      ports:
+        - "27017:27017"
+      container_name: "vote-db"
+      depends_on:
+        - "Eureka"
+      networks:
+        - vote-mongodb-network
+
     Eureka:
       container_name: eureka-server
       build: ./eureka-server
       ports:
         - "8761:8761"
       hostname: eureka-server
-      image: "eureka-server"
       environment:
         - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://eureka-server:8761/eureka/
+      image: "eureka-server"
+
+networks:
+  election-mysql-network:
+    driver: bridge
+  vote-mongodb-network:
+    driver: bridge

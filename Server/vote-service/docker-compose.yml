@@ -1,0 +1,23 @@
+version: "3"
+services:
+  vote-db:
+    image: mongo:latest
+    ports:
+      - "27017:27017"
+    container_name: "vote-db"
+    networks:
+      - vote-mongodb-network
+
+  vote-service:
+    image: ms-vote
+    ports:
+      - "8083:8083"
+    container_name: "vote-service"
+    networks:
+      - vote-mongodb-network
+    depends_on:
+      - vote-db
+
+networks:
+  vote-mongodb-network:
+    driver: bridge
